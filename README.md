@@ -65,6 +65,8 @@ Every mod should be in its own folder in the mod storage folder. Under this fold
 						|- objects
 						\- etc
 
+* * *
+
 Extract to the folder you wish to run the program from.
 
 ## Config File
