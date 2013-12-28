@@ -60,7 +60,7 @@ Every mod should be in its own folder in the mod storage folder. Under this fold
 >EG:
 
 	/usr/home/username/my_mods/examplemod/ -
- 	        				|- items
+						|- items
 						|- recipes
 						|- objects
 						\- etc
