@@ -46,7 +46,7 @@ If you don't know how to install perl modules, then you should skip to the secti
 
 This config.dat will need paths. When we use paths, we do not use relative paths. We need to use absolute paths that start from root.
 
-	EG:
+>EG:
 
 		Relative path: ~/my_mods/some/path/to/foldername  
 		Relative path: my_mods/some/path/to/foldername  
@@ -57,7 +57,7 @@ This config.dat will need paths. When we use paths, we do not use relative paths
 
 Every mod should be in its own folder in the mod storage folder. Under this folder should be the normal asset folders. There should not be an 'assets' folder in the folder where your mod resides.
 
-EG:
+>EG:
 
 	/usr/home/username/my_mods/examplemod/ -  
  	        				|- items  
