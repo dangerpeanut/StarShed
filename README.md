@@ -59,11 +59,11 @@ The software requirements are simple, but should not be ignored.
 
 	EG:
 
-	/usr/home/username/my_mods/examplemod/ -  
-  	        				|- items  
-						|- recipes  
-						|- objects  
-						\- etc  
+>	/usr/home/username/my_mods/examplemod/ -  
+>  	        				|- items  
+>						|- recipes  
+>						|- objects  
+>						\- etc  
 
 Extract to the folder you wish to run the program from.
 
