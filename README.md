@@ -8,21 +8,21 @@ A Starbound mod manager for modders
 * README
 	This file
 
-* starshed.pl
+* starshed.pl  
 	This is the perl program that you run. Non developers should not change this file.
 
-* config.dat.sample
+* config.dat.sample  
 	Where the program stores global configuration information. You will configure storage directories and some paths here.
 
 * scripts/
 
-	* cleanempties.sh
+	* cleanempties.sh  
 		This is a small script that is called by the program to clean empty folders from a mod's folder.
 
-	* packmod.sh
+	* packmod.sh  
 		Another small script called by the program that packages your mod into one zip file.
 
-* dirtree.zip
+* dirtree.zip  
 	A copy of the starbound directory tree( As of Offended Koala ).
 
 ## Requirements
@@ -30,7 +30,7 @@ A Starbound mod manager for modders
 The software requirements are simple, but should not be ignored.
 
 	* Perl 5.10 or higher ( developed on 5.14.4 )
-	* Bash
+	* Bash  
 		This is included in many, if not all linux distributions. OSX should have this as the default shell too. BSD variants will need this to be installed.
 	* The following perl modules: Curses::UI, Getopt::Long, File::Slurp, Archive::Extract.
 
@@ -48,10 +48,10 @@ The software requirements are simple, but should not be ignored.
 
 	EG:
 
-		Relative path: ~/my_mods/some/path/to/foldername
-		Relative path: my_mods/some/path/to/foldername
-		Absolute path: /usr/home/username/my_mods/some/path/to/foldername
-		Absolute path: /usr/home/username/my_mods/some/path/to/filename
+		Relative path: ~/my_mods/some/path/to/foldername  
+		Relative path: my_mods/some/path/to/foldername  
+		Absolute path: /usr/home/username/my_mods/some/path/to/foldername  
+		Absolute path: /usr/home/username/my_mods/some/path/to/filename  
 
 ### Mod Storage
 
@@ -59,11 +59,11 @@ The software requirements are simple, but should not be ignored.
 
 	EG:
 
-	/usr/home/username/my_mods/examplemod/ -
-  	        				|- items
-						|- recipes
-						|- objects
-						\- etc 
+	/usr/home/username/my_mods/examplemod/ -  
+  	        				|- items  
+						|- recipes  
+						|- objects  
+						\- etc  
 
 Extract to the folder you wish to run the program from.
 
@@ -77,37 +77,37 @@ There are a number of values here that you need to fill in. Every entry should b
 
 Here is the run down of each label.
 
-	- sbversion
+	- sbversion  
 		The version of Starbound that your mods support.
 	
-	- author
+	- author  
 		Your name or moniker.
 		
-	- email
+	- email   
 		Your contact email address if you wish.
 		
-	- modsdir
+	- modsdir  
 		The path to the folder where your mods will be stored.
 		
-	- infodir
+	- infodir  
 		This folder will store information for your mod. This includes the mod name, description, readme instructions, legal notices(copyright), modinfo data, etc. It will not be stored among your mod's assets, so this is where it is stored. It is read and formatted for your mod when it is packaged.
 		
-	- starboundassets **UNUSED**
+	- starboundassets **UNUSED**  
 		If you can, include the path to your starbound 'assets' folder. This is not used now, but will be in the future.
 		
-	- builddir
+	- builddir  
 		This is where your zipped mods will be stored. Once you package your mod, it will be found in this folder.
 	
-	- sbdirtree DEFAULT: dirtree.zip
+	- sbdirtree DEFAULT: dirtree.zip   
 		Expected to be a file path to a zip archive. The zip file should contain a directory tree of the starbound assets folder. The zip dirtree.zip serves this function and is distributed with the program. This zip holds no assets.
 		
-	- binbash
+	- binbash  
 		The path to your bash binary. On many linux systems, this is /bin/bash, but that is not always the case. You should put the path to bash here. Try running 'which bash'.
 		
-	- packscript
+	- packscript  
 		This is the path to the packsmod.sh script that came bundled with this program. You can move the script if you want, but the configuration needs to know where the script will reside.
 		
-	- emptydirscript
+	- emptydirscript  
 		Another path for a script packaged with the mod.
 
 Once all of these labels have a value, one more thing is needed before you can use the program. The bundled scripts need to be made executable. From a terminal, you can accomplish this from the included scripts folder by doing 'chmod +x \*.sh'.
@@ -134,22 +134,22 @@ If you have selected a mod from the mod list, then you will appear at a new scre
 	
 	When you are done filling out the information fields, you can use the options below. These options are as follows.
 
-		- Zip Mod
+		- Zip Mod  
 			This will remove all empty folders, export the mod info/readme/modinfo files, and zip your mod.
 		
-		- Import asset directory tree
+		- Import asset directory tree  
 			Imports the vanilla asset folder tree from dirtree.zip into your mod's folder.
 		
-		- Push information changes
+		- Push information changes  
 			Exports all text field data into storage files that reside in your infodir folder.
 		
-		- Export .modinfo file
+		- Export .modinfo file  
 			Exports the .modinfo file for your mod based on information in the text fields.
 		
-		- Export readme file
+		- Export readme file  
 			Exports the README.txt file for your mod.
 		
-		- Trim Empty Folders
+		- Trim Empty Folders  
 			Removes any empty folders within your mod's folder.
 
 ## Troubleshooting
@@ -158,7 +158,7 @@ If you have selected a mod from the mod list, then you will appear at a new scre
 
 		* Running the program does nothing. It stays in the shell with no output.
 		
-		* Running the program produces error messages.
+		* Running the program produces error messages.  
 			If this happens to you, make sure you installed all the required perl modules.
 		
 		* While doing stuff in the program, you are returned to the shell without quitting.
