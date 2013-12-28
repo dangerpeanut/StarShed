@@ -124,7 +124,7 @@ Under the Modules menu, the meat of the program resides. You can repack all mods
 
 ### Mod List
 
-	This screen will list all the folders that reside in your mods folder. Select one to begin managing it.
+This screen will list all the folders that reside in your mods folder. Select one to begin managing it.
 
 ### Managing Mods
 
@@ -134,34 +134,34 @@ You can go to the next field by keying TAB. You can only go one way I'm afraid, 
 	
 When you are done filling out the information fields, you can use the options below. These options are as follows.
 
-	- Zip Mod  
-		This will remove all empty folders, export the mod info/readme/modinfo files, and zip your mod.
+- Zip Mod  
+	This will remove all empty folders, export the mod info/readme/modinfo files, and zip your mod.
 		
-	- Import asset directory tree  
-		Imports the vanilla asset folder tree from dirtree.zip into your mod's folder.
+- Import asset directory tree  
+	Imports the vanilla asset folder tree from dirtree.zip into your mod's folder.
 		
-	- Push information changes  
-		Exports all text field data into storage files that reside in your infodir folder.
+- Push information changes  
+	Exports all text field data into storage files that reside in your infodir folder.
 		
-	- Export .modinfo file  
-		Exports the .modinfo file for your mod based on information in the text fields.
+- Export .modinfo file  
+	Exports the .modinfo file for your mod based on information in the text fields.
 		
-	- Export readme file  
-		Exports the README.txt file for your mod.
+- Export readme file  
+	Exports the README.txt file for your mod.
 		
-	- Trim Empty Folders  
-		Removes any empty folders within your mod's folder.
+- Trim Empty Folders  
+	Removes any empty folders within your mod's folder.
 
 ## Troubleshooting
 
 There will be bugs. All programs have bugs. There are three different things that can go wrong.
 
-	* Running the program does nothing. It stays in the shell with no output.
+* Running the program does nothing. It stays in the shell with no output.
 		
-	* Running the program produces error messages.  
-		If this happens to you, make sure you installed all the required perl modules.
+* Running the program produces error messages.  
+	If this happens to you, make sure you installed all the required perl modules.
 		
-	* While doing stuff in the program, you are returned to the shell without quitting.
+* While doing stuff in the program, you are returned to the shell without quitting.
 
 In the cases where no errors appear, then you must look at the error log to see what went wrong. The program shoves everything from STDERR into err.log. It resides in the same folder as the program.
 	
