@@ -16,11 +16,11 @@ A Starbound mod manager for modders
 
 * scripts/
 
-	* cleanempties.sh  
-		This is a small script that is called by the program to clean empty folders from a mod's folder.
+- cleanempties.sh  
+	This is a small script that is called by the program to clean empty folders from a mod's folder.
 
-	* packmod.sh  
-		Another small script called by the program that packages your mod into one zip file.
+- packmod.sh  
+	Another small script called by the program that packages your mod into one zip file.
 
 * dirtree.zip  
 	A copy of the starbound directory tree( As of Offended Koala ).
@@ -29,10 +29,10 @@ A Starbound mod manager for modders
 
 The software requirements are simple, but should not be ignored.
 
-	* Perl 5.10 or higher ( developed on 5.14.4 )
-	* Bash  
-		This is included in many, if not all linux distributions. OSX should have this as the default shell too. BSD variants will need this to be installed.
-	* The following perl modules: Curses::UI, Getopt::Long, File::Slurp, Archive::Extract.
+* Perl 5.10 or higher ( developed on 5.14.4 )
+* Bash  
+	This is included in many, if not all linux distributions. OSX should have this as the default shell too. BSD variants will need this to be installed.
+* The following perl modules: Curses::UI, Getopt::Long, File::Slurp, Archive::Extract.
 
 ### Meeting the requirements
 
