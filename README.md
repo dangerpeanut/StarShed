@@ -71,7 +71,7 @@ Extract to the folder you wish to run the program from.
 
 ## Config File
 
-Before you can use this program, you will need to configure it. Make a copy of the config.dat.sample file and make it 'config.dat'. This file is _required_ to be in the same folder as the main modderman.pl program.
+Before you can use this program, you will need to configure it. Make a copy of the config.dat.sample file and make it 'config.dat'. This file is _required_ to be in the same folder as the main starshed.pl program.
 
 There are a number of values here that you need to fill in. Every entry should be as follows on its own line:
 
@@ -114,7 +114,7 @@ Here is the run down of each label.
 
 Once all of these labels have a value, one more thing is needed before you can use the program. The bundled scripts need to be made executable. From a terminal, you can accomplish this from the included scripts folder by doing 'chmod +x \*.sh'.
 
-That should be all. Now you can go back to where you put the program. Run 'perl modderman.pl'.
+That should be all. Now you can go back to where you put the program. Run 'perl starshed.pl'.
 
 ## The Program
 
