@@ -5,7 +5,7 @@ A Starbound mod manager for modders
 
 ## Contents
 
-* README
+* README  
 	This file
 
 * starshed.pl  
