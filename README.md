@@ -3,7 +3,7 @@ StarShed
 
 A Starbound mod manager for modders
 
-### Contents
+## Contents
 
 * README
 	This file
@@ -25,7 +25,7 @@ A Starbound mod manager for modders
 * dirtree.zip
 	A copy of the starbound directory tree( As of Offended Koala ).
 
-### Requirements
+## Requirements
 
 The software requirements are simple, but should not be ignored.
 
@@ -34,15 +34,15 @@ The software requirements are simple, but should not be ignored.
 		This is included in many, if not all linux distributions. OSX should have this as the default shell too. BSD variants will need this to be installed.
 	* The following perl modules: Curses::UI, Getopt::Long, File::Slurp, Archive::Extract.
 
-#### Meeting the requirements
+### Meeting the requirements
 
 	As implied by these requirements, a unix-like operating system is required. Apple OSX, most linux distributions, and any BSD variant (FreeBSD, OpenBSD, NetBSD) all meet these criteria. You may be able to get this to function on Windows with cygwin ( http://www.cygwin.com/ ).
 
 	If you don't know how to install perl modules, then you should skip to the section for CPAN on this page: http://www.perlmonks.org/?node_id=128077
 
-### Instructions
+## Instructions
 
-#### Paths
+### Paths
 
 	This config.dat will need paths. When we use paths, we do not use relative paths. We need to use absolute paths that start from root.
 
@@ -53,7 +53,7 @@ The software requirements are simple, but should not be ignored.
 		Absolute path: /usr/home/username/my_mods/some/path/to/foldername
 		Absolute path: /usr/home/username/my_mods/some/path/to/filename
 
-#### Mod Storage
+### Mod Storage
 
 	Every mod should be in its own folder in the mod storage folder. Under this folder should be the normal asset folders. There should not be an 'assets' folder in the folder where your mod resides.
 
@@ -67,7 +67,7 @@ The software requirements are simple, but should not be ignored.
 
 Extract to the folder you wish to run the program from.
 
-### Config File
+## Config File
 
 Before you can use this program, you will need to configure it. Make a copy of the config.dat.sample file and make it 'config.dat'. This file is _required_ to be in the same folder as the main modderman.pl program.
 
@@ -114,7 +114,7 @@ Once all of these labels have a value, one more thing is needed before you can u
 
 That should be all. Now you can go back to where you put the program. Run 'perl modderman.pl'.
 
-### The Program
+## The Program
 
 You should be greeted with a user interface in your terminal. If your terminal is too small, resize it and the interface should appear. If it does *nothing*, then something has gone wrong. Please see the TROUBLESHOOTING section.
 
@@ -122,11 +122,11 @@ As the onscreen text says, you can quit anytime with CTRL-Q or using the quit op
 
 Under the Modules menu, the meat of the program resides. You can repack all mods, return to the mod manage screen, select a mod for individual change, or create a new mod here.
 
-#### Mod List
+### Mod List
 
 	This screen will list all the folders that reside in your mods folder. Select one to begin managing it.
 
-#### Managing Mods
+### Managing Mods
 
 If you have selected a mod from the mod list, then you will appear at a new screen. You should see many text fields for your mod appear. Below these fields is a menu for performing actions on your mod.
 	
@@ -152,7 +152,7 @@ If you have selected a mod from the mod list, then you will appear at a new scre
 		- Trim Empty Folders
 			Removes any empty folders within your mod's folder.
 
-### Troubleshooting
+## Troubleshooting
 
 	There will be bugs. All programs have bugs. There are three different things that can go wrong.
 
