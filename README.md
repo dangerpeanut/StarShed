@@ -3,6 +3,10 @@ StarShed
 
 A Starbound mod manager for modders
 
+## Summary
+
+Ease management and creation for mod authors.
+
 ## Contents
 
 * README  
