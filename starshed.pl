@@ -37,7 +37,7 @@ close STDERR;
 
 open STDERR, '>', $errorlog;
 
-my (%config, $mod_win, %mods, @modvals, $debug, %w, %state, %modstate);
+my (@rawassets, %config, $mod_win, %mods, @modvals, $debug, %w, %state, %modstate, %assets, @assetvals);
 
 my $ui = new Curses::UI( -color_support => 1);
 
@@ -423,6 +423,39 @@ sub compile_modmenu{
 		print $mod . "\n";
 
 	}}
+
+}
+
+sub compile_assetlist{
+
+	my $mod = shift;
+
+	undef %assets;
+
+	undef @assetvals;
+
+	my $count = 1;
+
+	find(\&asset_search, get_mod_dir($mod));
+
+	for my $asset (@rawassets){
+
+		$assets{$count} = $asset;
+
+		$count+=1;
+
+	}
+
+	@assetvals = keys %assets;
+
+}
+
+sub asset_search{
+
+	if ( -f $File::Find::name and $File::Find::name !~ /README/ and $File::Find::name !~ /modinfo$/){
+		push @rawassets, $File::Find::name;
+	}
+
 
 }
 
