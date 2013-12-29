@@ -126,6 +126,9 @@ Here is the run down of each label.
 - emptydirscript  
 	Another path for a script packaged with the mod.
 
+- jsonout  
+  Full path to a file to be used for json debugging. If this is not defined, json cannot be checked for validity and reported back in the program.
+
 Once all of these labels have a value, one more thing is needed before you can use the program. The bundled scripts need to be made executable. From a terminal, you can accomplish this from the included scripts folder by doing 'chmod +x \*.sh'.
 
 That should be all. Now you can go back to where you put the program. Run 'perl starshed.pl'.
