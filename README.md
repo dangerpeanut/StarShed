@@ -7,6 +7,16 @@ A Starbound mod manager for modders
 
 Ease management and creation for mod authors.
 
+## Features
+
+* Mod Packaging: Easily compress your mods into a zip file for distribution.
+
+* Information Formatting: All mods are formatted with README files and modinfo files based on information you input.
+
+* Import Asset Structure: Easily import the starbound asset folder structure to help structure your mod.
+
+* Folder Trimming: Remove any empty, unused folders in your mod before compression, or anytime.
+
 ## Contents
 
 * README  
