@@ -106,6 +106,8 @@ my %screens = (
 	'2' => 'Mod List', 
 	'3' => 'Manage Mod', 
 	'4' => 'Create Mod', 
+	'5' => 'Asset List', 
+	'6' => 'Asset Edit', 
 
 );
 
@@ -361,6 +363,25 @@ $w{4}->add(
 	},
 );
 
+### Asset List ###
+
+$w{5}->add(
+	'undef', 'Listbox', 
+	-values => \@assetvals, 
+	-labels => \%assets,
+#	-onchange => \&assetlist_onselect, 
+);
+
+### Asset Editing ###
+
+$w{6}->add(
+	'asset_editor', 'TextEditor',
+	'title' => 'Asset Editor',
+	-height => 10, -width => 100, -border => 1, -text => $modstate{'asset_content'}, 
+
+
+):
+
 #############
 ### Menus ###
 #############
@@ -368,6 +389,11 @@ $w{4}->add(
 my $file_menu = [
     { -label => 'Quit program',        -value => sub {exit(0)}        }, 
 ]; 
+
+my $assets_menu = [
+    { -label => 'Asset Selection',       -value   => sub{$w{5}->focus}   }, 
+    { -label => 'Edit Asset',		     -value   => sub{$w{6}->focus}   }, 
+];
 
 my $mods_menu = [
     { -label => 'Edit Selected Mod',       -value   => sub{$w{3}->focus}   }, 
@@ -380,6 +406,7 @@ my $mods_menu = [
 my $menu = [
     { -label => 'File',                -submenu => $file_menu         }, 
     { -label => 'Modules',         -submenu => $mods_menu     }, 
+    { -label => 'Assets',         -submenu => $assets_menu     }, 
 ];
 
 $ui->add(
@@ -448,11 +475,13 @@ sub compile_assetlist{
 
 	@assetvals = keys %assets;
 
+	undef @rawassets;
 }
 
 sub asset_search{
 
-	if ( -f $File::Find::name and $File::Find::name !~ /README/ and $File::Find::name !~ /modinfo$/){
+	if ( -f $File::Find::name and
+		$File::Find::name !~ /(README.txt|modinfo)$/){
 		push @rawassets, $File::Find::name;
 	}
 
@@ -497,6 +526,8 @@ sub modstate_load{
 	for my $detail (@{$config{'details'}}){
 		$modstate{$detail} = read_file $config{'infodir'} . '/' . $mod . '.' . $detail, err_mode => 'carp';
 	}
+
+	compile_assetlist($mod);
 
 }
 

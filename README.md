@@ -43,10 +43,10 @@ Ease management and creation for mod authors.
 
 The software requirements are simple, but should not be ignored.
 
-* Perl 5.10 or higher ( developed on 5.14.4 )
+* Perl 5.18.1 or higher
 * Bash  
 	This is included in many, if not all linux distributions. OSX should have this as the default shell too. BSD variants will need this to be installed.
-* The following perl modules: Curses::UI, Getopt::Long, File::Slurp, Archive::Extract.
+* The following perl modules: Curses::UI, Getopt::Long, File::Slurp, Archive::Extract, File::Find(core module in 5.18.1).
 
 ### Meeting the requirements
 
@@ -185,3 +185,17 @@ There will be bugs. All programs have bugs. There are three different things tha
 In the cases where no errors appear, then you must look at the error log to see what went wrong. The program shoves everything from STDERR into err.log. It resides in the same folder as the program.
 	
 If I can't see the error, then I don't know what to fix.
+
+# Windows Support
+
+There is _**none**_. At all. Any and all support given for this program running under Windows should be considered an act of god, genuine miracle, suspension of the natural order, etc, etc. Mac OSX and unix derivatives(GNU/Linux, BSD, Solaris, etc) are the only platforms supported at this time and in the forseeable future.
+
+## Error/Bug Reporting
+
+When reporting a bug or problem, *three* things are _**required**_:
+
+1. Detailed steps you took to produce the problem if it is reproducable.
+
+2. Complete description of what happens when the problem occurs.
+
+3. The entire error log ( err.log ).
