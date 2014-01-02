@@ -43,7 +43,7 @@ Ease management and creation for mod authors.
 
 The software requirements are simple, but should not be ignored.
 
-* Perl 5.18.1 or higher
+* Perl 5.10 or higher
 * Bash  
 	This is included in many, if not all linux distributions. OSX should have this as the default shell too. BSD variants will need this to be installed.
 * The following perl modules: Curses::UI, Getopt::Long, File::Slurp, Archive::Extract, File::Find(core module in 5.18.1).
