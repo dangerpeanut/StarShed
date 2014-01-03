@@ -28,7 +28,6 @@
 use strict;
 use warnings;
 use utf8;
-use Carp;
 use Curses::UI;
 use Getopt::Long;
 use File::Slurp;
