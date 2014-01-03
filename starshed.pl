@@ -18,26 +18,43 @@
 #     REVISION: ---
 #===============================================================================
 
+#####
+# Makamaka Hannyaharamitu is a jerk for making the JSON module croak when encountering JSON syntax errors upon decode.
+# I would rather my program *not* DIE when decoding invalid JSON on _purpose_.
+# I want to provide STDERR from the decode as debugging information to the end user in the case of errors.
+# I have been unable to capture this same information by trapping the croak in EVAL blocks, so I get to redefine the decode_error sub. Awesome.
+#####
+
 use strict;
 use warnings;
 use utf8;
+use Carp;
 use Curses::UI;
 use Getopt::Long;
 use File::Slurp;
 use File::Find;
 use Archive::Extract;
 use Cwd 'abs_path';
+use JSON::DWIW;
 use feature qw/say/;
 
 # Since the curses UI overrides standard output,  STDERR is re-established to be directed to a file.
+
+$SIG{INT} = \&signal_interrupt;
+$SIG{TERM} = \&signal_terminate;
+$SIG{SEGV} = \&signal_segv;
+$SIG{ALRM} = \&signal_alarm;
+$SIG{ILL} = \&signal_illegal;
+$SIG{ABRT} = \&signal_abort;
+$SIG{QUIT} = \&signal_quit;
 
 close STDERR;
 
 (my $errorlog = abs_path($0)) =~ s/$0/err.log/;
 
-open STDERR, '>', $errorlog;
+open STDERR, '>>', $errorlog;
 
-my (@rawassets, %config, $mod_win, %mods, @modvals, $debug, %w, %state, %modstate, %assets, @assetvals);
+my (@rawassets, %config, $mod_win, %mods, @modvals, $debug, %w, %state, %modstate, %assets, @assetvals, %assetstate);
 
 my $ui = new Curses::UI( -color_support => 1);
 
@@ -121,8 +138,7 @@ my %args = (
     -ipad         => 1, 
 );
 
-while (my ($nr,  $title) = each %screens)
-{
+while (my ($nr,  $title) = each %screens){
 	    my $id = "window_$nr";
 	    $w{$nr} = $ui->add(
 	        $id,  'Window',  
@@ -369,18 +385,48 @@ $w{5}->add(
 	'undef', 'Listbox', 
 	-values => \@assetvals, 
 	-labels => \%assets,
-#	-onchange => \&assetlist_onselect, 
+	-onchange => \&assetlist_onselect, 
 );
 
 ### Asset Editing ###
 
 $w{6}->add(
 	'asset_editor', 'TextEditor',
-	'title' => 'Asset Editor',
-	-height => 10, -width => 100, -border => 1, -text => $modstate{'asset_content'}, 
+	-title => 'Asset Editor',
+	-height => 18, -width => 100, -border => 1, -text => $assetstate{'content'}, -vscrollbar => 1,
+	-onchange => \&update_asset_content, 
+	-onfocus => \&update_asset_editor, 
+);
 
+$w{6}->add(
+	'json_check', 'TextViewer',
+	-title => 'JSON Validation', -y => 19, -wrapping => 1,
+	-height => 8, -width => 40, -border => 1, -text => $assetstate{'content'},
+	-onfocus => \&update_asset_editor, 
+);
 
-):
+my %assetopts = (
+	1 => 'Validate Asset JSON', 
+	2 => 'Write Asset', 
+	3 => 'Revert Asset Changes', 
+);
+
+my @assetoptvals = keys %assetopts;
+
+$w{6}->add(
+	'assetoptions', 'Listbox', -radio => 1,
+	-title => 'Asset Options',
+	-y => 28, -border => 1,  
+	-values => \@assetoptvals, 
+	-labels => \%assetopts,
+	-onchange => \&assetoptions_select,
+	-onfocus => sub{
+		my $self = shift;
+		$self->clear_selection;
+		update_asset_editor($self);
+	}, 
+
+);
 
 #############
 ### Menus ###
@@ -566,6 +612,19 @@ sub modoptions_select{
 
 }
 
+sub assetoptions_select{
+
+	my $self = shift;
+	my $selnum = $self->get;
+	my %action = (
+		1 => \&validate_json, 
+		2 => \&write_asset,
+		3 => \&load_asset, 
+	);
+
+	&{$action{$selnum}}($self, 'true') or warn "Could not execute function: $!";
+}
+
 # The following function packages your mod into a zip file. It will delete the existing zipfile before making a new one.
 
 sub zip_mod{
@@ -713,6 +772,25 @@ sub modlist_onselect{
 
 }
 
+sub assetlist_onselect{
+	my $self = shift;
+	my $badsel;
+	my $selnum = $self->get;
+	my $sel = $assets{$selnum};
+	$sel = 'none' unless $sel;
+	if ($sel =~ /(png|ogg|abc|wav)$/){
+		dialog('Bad Choice', 'Please select a valid text asset.');
+		$badsel = 'true';
+		}
+	if ($sel ne 'none' and $sel ne $assetstate{'asset'} and $badsel ne 'true'){
+		write_asset($self) if $assetstate{'asset'};
+		$assetstate{'asset'} = $sel;
+		load_asset();
+	}
+	$w{6}->focus unless($badsel eq 'true');
+
+}
+
 # When we need a popup message to be sent to notify the user that something has been done. Accepts the messagebox title and message content.
 
 sub dialog{
@@ -783,6 +861,95 @@ sub update_text_fields{
 		$txnotes->text($modstate{'notes'});
 }
 
+sub update_asset_editor{
+	my $self = shift;
+	my $asset_field = $self->parent->getobj('asset_editor');
+	$asset_field->text($assetstate{'content'});
+}
+
+sub write_asset{
+	my ( $self, $dialog ) = @_;
+	my $asset_field = $self->parent->getobj('asset_editor');
+	my $content = $asset_field->get;
+	write_file $assetstate{'asset'}, $content;
+	dialog('Asset Write', 'Asset has been written.') if $dialog;
+}
+
+sub clear_json_check{
+	my $self = shift;
+	my $json_check = $self->parent->getobj('json_check');
+	$json_check->text('');
+}
+
+sub validate_json{
+	my ( $self, $dialog ) = @_;
+	
+	my ($data, $error) = JSON::DWIW::from_json($assetstate{'content'});
+
+	my $result;
+	
+	$result = 'OK' unless $error;
+
+	$result = 'BAD' if $error;
+
+	if($dialog and $result eq 'BAD'){
+		dialog('JSON invalid', 'Please see the JSON check field for more information on the failure.');
+
+	}
+	if($dialog and $result eq 'OK'){
+		dialog('JSON valid', 'No problems detected with the JSON for your asset.')
+	}
+
+	if($result eq 'BAD'){
+		my $json_check = $self->parent->getobj('json_check');
+		$json_check->text($error);
+	}
+	
+	if($result eq 'OK'){
+		clear_json_check($self);
+	}
+}
+
+sub load_asset{
+	my ( $self, $dialog ) = @_;
+	$assetstate{'content'} = read_file $assetstate{'asset'};
+	dialog('Read Asset', 'Asset has been loaded from file.') if $dialog;
+}
+
+sub update_asset_content{
+	my $self = shift;
+	my $asset_field = $self->parent->getobj('asset_editor');
+	$assetstate{'content'} = $asset_field->get;
+
+}
+
+sub signal_interrupt{
+	die "Received interrupt signal: $!"
+}
+
+sub signal_terminate{
+	die "Received terminate signal: $!"
+}
+
+sub signal_abort{
+	die "Received abort signal: $!"
+}
+
+sub signal_illegal{
+	die "Illegal instruction: $!"
+}
+
+sub signal_segv{
+	die "Invalid memory reference: $!"
+}
+
+sub signal_alarm{
+	die "Received alarm signal: $!"
+}
+
+sub signal_quit{
+	die "Received quit signal: $!"
+}
 ############
 ### Main ###
 ############
