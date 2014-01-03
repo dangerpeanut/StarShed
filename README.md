@@ -17,6 +17,10 @@ Ease management and creation for mod authors.
 
 * Folder Trimming: Remove any empty, unused folders in your mod before compression, or anytime.
 
+* Asset Modification: Edit any text asset your mod is equipped with.
+
+* Asset JSON Validation: Make sure your asset is valid JSON before saving it.
+
 ## Contents
 
 * README  
@@ -46,7 +50,7 @@ The software requirements are simple, but should not be ignored.
 * Perl 5.10 or higher
 * Bash  
 	This is included in many, if not all linux distributions. OSX should have this as the default shell too. BSD variants will need this to be installed.
-* The following perl modules: Curses::UI, Getopt::Long, File::Slurp, Archive::Extract, File::Find(core module in 5.18.1).
+* The following perl modules: Curses::UI, Getopt::Long, File::Slurp, Archive::Extract, File::Find(core module), JSON::DWIW.
 
 ### Meeting the requirements
 
@@ -171,6 +175,25 @@ When you are done filling out the information fields, you can use the options be
 - Trim Empty Folders  
 	Removes any empty folders within your mod's folder.
 
+### Asset List
+
+Here you can select any asset from the selected mod you have open. Only text assets will be selectable. Non-text assets will tell you no.
+
+### Asset Editing
+
+In this window you can find the text for your selected asset in the top box. If you validate the JSON, any errors will appear in the second box.
+
+You have three options to choose from in the final area:
+
+- Validate JSON
+  Check the asset content to make sure it is valid JSON code.
+
+- Write Asset
+  When you are happy with your asset, you can save it to disk.
+
+- Revert Asset Changes
+  If you have made a mistake, you can reload the asset from disk.
+
 ## Troubleshooting
 
 There will be bugs. All programs have bugs. There are three different things that can go wrong.
@@ -199,3 +222,5 @@ When reporting a bug or problem, *three* things are _**required**_:
 2. Complete description of what happens when the problem occurs.
 
 3. The entire error log ( err.log ).
+
+You can submit this in the official mod discussion here: <http://community.playstarbound.com/index.php?threads/starshed-modders-manager.55643/> 
